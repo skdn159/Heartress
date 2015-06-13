@@ -14,6 +14,7 @@ public:
 public:
     bool m_IsMyTurn;
     Team m_Team;
-    
+    int m_PlayerID;
+
 };
 

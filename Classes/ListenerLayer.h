@@ -1,7 +1,8 @@
 ﻿#pragma once
-#include "InputManager.h"
 #include "cocos2d.h"
+#include "InputManager.h"
 #include "Enums.h"
+
 USING_NS_CC;
 
 class ListenerLayer : public Layer

@@ -10,10 +10,7 @@ public:
     virtual bool init();
     CREATE_FUNC(UILayer);
 
-    void    CursorChange(CursorMode cursorMode);
-    //void    HideCooltimeBox(SkillKey key);
-    void    ClickExit(Ref* sender);
-    void    LoadingMessage();
+//    void    ClickExit(Ref* sender);
     void    UpdateHpBar(float curHp, float maxHp);
 
     //Sprite* GetCurrentCursor() { return m_Cursor; }

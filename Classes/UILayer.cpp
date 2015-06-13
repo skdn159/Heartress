@@ -90,24 +90,14 @@ bool UILayer::init()
 //     Director::getInstance()->popScene();
 // }
 // 
-// void UILayer::UpdateHpBar(float curHp, float maxHp)
-// {
-//     char* currentHp = (char*)calloc(255,sizeof(char));
-//     char* maximumHp = (char*)calloc(255, sizeof(char));
-//     itoa(curHp, currentHp, 10); itoa(maxHp, maximumHp, 10);
-//     strcat(currentHp, " / "); strcat(currentHp, maximumHp);
-//     auto hpLabel = dynamic_cast<Label*>(this->getChildByName("HpLabel"));
-//     hpLabel->setString(currentHp);
-//     auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
-//     hpBar->setScaleX(0.72f*(curHp / maxHp));
-// }
-// 
-// Sprite* UILayer::GetCooltimeBox(SkillKey key)
-// {
-//     auto sprite = m_CooltimeBox.find(key);
-//     if (sprite == m_CooltimeBox.end())
-//     {
-//         return nullptr;
-//     }
-//     return m_CooltimeBox[key];
-// }
+    void UILayer::UpdateHpBar(float curHp, float maxHp)
+    {
+//         char* currentHp = (char*)calloc(255,sizeof(char));
+//         char* maximumHp = (char*)calloc(255, sizeof(char));
+//         itoa(curHp, currentHp, 10); itoa(maxHp, maximumHp, 10);
+//         strcat(currentHp, " / "); strcat(currentHp, maximumHp);
+//         auto hpLabel = dynamic_cast<Label*>(this->getChildByName("HpLabel"));
+//         hpLabel->setString(currentHp);
+//         auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
+//         hpBar->setScaleX(0.72f*(curHp / maxHp));
+    }

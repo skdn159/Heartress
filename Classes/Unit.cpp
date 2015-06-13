@@ -1,12 +1,7 @@
-﻿#include "pch.h"
+﻿#include "cocos2d.h"
 #include "Unit.h"
-#include "Hero.h"
-#include "Skill.h"
 #include "GameManager.h"
 #include "SimpleAudioEngine.h"
-#include "Mob.h"
-#include "Macros.h"
-#include "Buff.h"
 #include <memory>
 using namespace CocosDenshion;
 
@@ -20,7 +15,7 @@ Unit::Unit()
     m_CurHp = m_MaxHp = 0;
     m_Speed = 0;
     m_TargetPos = { 0, 0 };
-    m_CenterSprite = Sprite::create("Images/Unit/CloackingUnit.png");
+//    m_CenterSprite = Sprite::create("Images/Unit/CloackingUnit.png");
     
 }
 
@@ -32,35 +27,35 @@ Unit::~Unit()
 
 void Unit::Move()
 {
-    if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
-    {
-        auto hero = dynamic_cast<Hero*>(this);
-        hero->SetMoveMotionByDir();
-    }
-    if (GET_MAIN_TYPE(m_UnitID) == UNIT_MOB)
-    {
-        this->SetMoveMotionByDir();
-    }
-
-    auto gap = m_TargetPos - m_CenterSprite->getPosition();
-    gap.normalize();
-    m_TargetPos -= gap * 15;
-    auto distance = m_CenterSprite->getPosition().distance(m_TargetPos);
-    auto time = distance / m_Speed;
-    auto action1 = MoveTo::create(time, m_TargetPos);
-    auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, this));
-    auto action3 = Sequence::create(action1, action2, NULL);
-    m_CenterSprite->runAction(action3);
+//     if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
+//     {
+//         auto hero = dynamic_cast<Hero*>(this);
+//         hero->SetMoveMotionByDir();
+//     }
+//     if (GET_MAIN_TYPE(m_UnitID) == UNIT_MOB)
+//     {
+//         this->SetMoveMotionByDir();
+//     }
+// 
+//     auto gap = m_TargetPos - m_CenterSprite->getPosition();
+//     gap.normalize();
+//     m_TargetPos -= gap * 15;
+//     auto distance = m_CenterSprite->getPosition().distance(m_TargetPos);
+//     auto time = distance / m_Speed;
+//     auto action1 = MoveTo::create(time, m_TargetPos);
+//     auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, this));
+//     auto action3 = Sequence::create(action1, action2, NULL);
+//     m_CenterSprite->runAction(action3);
 }
 
-void Unit::Crash()
-{
+//void Unit::Crash()
+//{
 //     auto distance = m_CenterSprite->getPosition().distance(m_TargetPos);
 //     auto time = sqrt(distance) / 15;
 //     auto action1 = MoveTo::create(time, m_TargetPos);
 //     auto action2 = EaseOut::create(action1, 2.5f);
 //     m_CenterSprite->runAction(action2);
-}
+//}
 
 
 // 
@@ -98,42 +93,42 @@ void Unit::SetHp(int curHp)
     m_CurHp = curHp;
 }
 
-void Unit::SetMyHpBar()
-{
-    SetHeroHpBar("Images/Interface/hp_bar_in.png");
-}
-
-void Unit::SetEnemyHpBar()
-{
-    SetHeroHpBar("Images/Interface/hp_bar_in_enemy.png");
-}
-
-void Unit::SetTeamHpBar()
-{
-    SetHeroHpBar("Images/Interface/hp_bar_in_team.png");
-}
-
-void Unit::SetUnitHpBar()
-{
-    m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame_mob.png");
-    m_HpBarFrame->setPosition(Vec2(0, 50));
-    m_CenterSprite->addChild(m_HpBarFrame, 10);
-
-    m_HpBar = Sprite::create("Images/Interface/hp_bar_in_mob.png");
-    m_HpBar->setAnchorPoint(Vec2(0, 0));
-    m_HpBar->setPosition(Vec2(2, 2));
-    m_HpBarFrame->addChild(m_HpBar);
-}
-
-void Unit::UpdateHpBar()
-{
-    if (m_HpBar)
-    {
-        Damaged();
-        m_HpBar->setScaleX(m_CurHp / m_MaxHp);
-    }
-}
-
+// void Unit::SetMyHpBar()
+// {
+//     SetHeroHpBar("Images/Interface/hp_bar_in.png");
+// }
+// 
+// void Unit::SetEnemyHpBar()
+// {
+//     SetHeroHpBar("Images/Interface/hp_bar_in_enemy.png");
+// }
+// 
+// void Unit::SetTeamHpBar()
+// {
+//     SetHeroHpBar("Images/Interface/hp_bar_in_team.png");
+// }
+// 
+// void Unit::SetUnitHpBar()
+// {
+//     m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame_mob.png");
+//     m_HpBarFrame->setPosition(Vec2(0, 50));
+//     m_CenterSprite->addChild(m_HpBarFrame, 10);
+// 
+//     m_HpBar = Sprite::create("Images/Interface/hp_bar_in_mob.png");
+//     m_HpBar->setAnchorPoint(Vec2(0, 0));
+//     m_HpBar->setPosition(Vec2(2, 2));
+//     m_HpBarFrame->addChild(m_HpBar);
+// }
+// 
+// void Unit::UpdateHpBar()
+// {
+//     if (m_HpBar)
+//     {
+//         Damaged();
+//         m_HpBar->setScaleX(m_CurHp / m_MaxHp);
+//     }
+// }
+// 
 
 
 
@@ -175,90 +170,90 @@ void Unit::Damaged()
 //     m_RealSprite->runAction(action3);
 //     //m_Damaged->setVisible(false);
 }
-
-Direction Unit::CalcMoveDirection(Vec2 displacement)
-{
-    float slope = displacement.y / displacement.x;
-
-    if (displacement.x > 0)
-    {
-        if (slope > -0.41f  && slope <= 0.41f)  return Direction::E;
-        if (slope > 0.41f   && slope <= 2.41f)  return Direction::NE;
-        if (slope <= -0.41f && slope > -2.41f)  return Direction::SE;
-        if (slope > 2.41f)                      return Direction::NE;
-        if (slope <= -2.41f)                    return Direction::S;
-    }
-    else if (displacement.x < 0)
-    {
-        if (slope > -0.41f  && slope <= 0.41f)  return Direction::W;
-        if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
-        if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
-        if (slope > 2.41f)                      return Direction::SW;
-        if (slope <= -2.41f)                    return Direction::N;
-    }
-    else if (displacement.x == 0)
-    {
-        if (displacement.y < 0)
-            return Direction::S;
-        else
-            return Direction::N;
-    }
-    return Direction::E;
-}
-
-Direction Unit::CalcSkillDirection(Vec2 displacement)
-{
-    float slope = displacement.y / displacement.x;
-
-    if (displacement.x > 0)
-    {
-        if (slope >= 0)
-            return Direction::NE;
-        else
-            return Direction::SE;
-    }
-    else
-    {
-        if (slope >= 0)
-            return Direction::SW;
-        else
-            return Direction::NW;
-    }
-    return Direction::SE;
-}
-
-RepeatForever* Unit::MakeUnitAnimation(const char* format, int size)
-{
-    auto animation = Animation::create();
-    if (size < 5)
-        animation->setDelayPerUnit(1.0f);
-    
-    else
-        animation->setDelayPerUnit(0.3f);
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-    return RepeatForever::create(Animate::create(animation));
-}
-
-Animate* Unit::MakeUnitAnimationOnce(const char* format, int size)
-{
-    auto animation = Animation::create();
-
-    if (size < 5)
-        animation->setDelayPerUnit(0.3f);
-    else
-        animation->setDelayPerUnit(0.2f);
-   
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-
-    return Animate::create(animation);
-}
+// 
+// Direction Unit::CalcMoveDirection(Vec2 displacement)
+// {
+//     float slope = displacement.y / displacement.x;
+// 
+//     if (displacement.x > 0)
+//     {
+//         if (slope > -0.41f  && slope <= 0.41f)  return Direction::E;
+//         if (slope > 0.41f   && slope <= 2.41f)  return Direction::NE;
+//         if (slope <= -0.41f && slope > -2.41f)  return Direction::SE;
+//         if (slope > 2.41f)                      return Direction::NE;
+//         if (slope <= -2.41f)                    return Direction::S;
+//     }
+//     else if (displacement.x < 0)
+//     {
+//         if (slope > -0.41f  && slope <= 0.41f)  return Direction::W;
+//         if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
+//         if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
+//         if (slope > 2.41f)                      return Direction::SW;
+//         if (slope <= -2.41f)                    return Direction::N;
+//     }
+//     else if (displacement.x == 0)
+//     {
+//         if (displacement.y < 0)
+//             return Direction::S;
+//         else
+//             return Direction::N;
+//     }
+//     return Direction::E;
+// }
+// 
+// Direction Unit::CalcSkillDirection(Vec2 displacement)
+// {
+//     float slope = displacement.y / displacement.x;
+// 
+//     if (displacement.x > 0)
+//     {
+//         if (slope >= 0)
+//             return Direction::NE;
+//         else
+//             return Direction::SE;
+//     }
+//     else
+//     {
+//         if (slope >= 0)
+//             return Direction::SW;
+//         else
+//             return Direction::NW;
+//     }
+//     return Direction::SE;
+// }
+// 
+// RepeatForever* Unit::MakeUnitAnimation(const char* format, int size)
+// {
+//     auto animation = Animation::create();
+//     if (size < 5)
+//         animation->setDelayPerUnit(1.0f);
+//     
+//     else
+//         animation->setDelayPerUnit(0.3f);
+// 
+//     for (int i = 1; i < size + 1; ++i)
+//     {
+//         auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+//         animation->addSpriteFrame(frame);
+//     }
+//     return RepeatForever::create(Animate::create(animation));
+// }
+// 
+// Animate* Unit::MakeUnitAnimationOnce(const char* format, int size)
+// {
+//     auto animation = Animation::create();
+// 
+//     if (size < 5)
+//         animation->setDelayPerUnit(0.3f);
+//     else
+//         animation->setDelayPerUnit(0.2f);
+//    
+// 
+//     for (int i = 1; i < size + 1; ++i)
+//     {
+//         auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+//         animation->addSpriteFrame(frame);
+//     }
+// 
+//     return Animate::create(animation);
+// }
