@@ -13,7 +13,12 @@ Scene* GameScene::createScene()
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
-    auto scene = Scene::create();
+    auto scene = Scene::createWithPhysics();
+
+    
+    scene->getPhysicsWorld()->setGravity(Vect(0.0f, -10.0f));
+
+
     auto layer1 = GameScene::create();
     auto layer2 = ListenerLayer::create();
     scene->addChild(layer1, 3, "GameScene");

@@ -8,10 +8,10 @@ bool MapLayer::init()
     {
         return false;
     }
-//     auto sprite = Sprite::create("Images/Background/bg2.png");
-//     sprite->setPosition(this->getAnchorPointInPoints());
-//     this->addChild(sprite);
-    return true;
+//      auto sprite = Sprite::create("Images/sky.png");
+//      sprite->setPosition(this->getAnchorPointInPoints());
+//      this->addChild(sprite);
+     return true;
 }
 
 void MapLayer::MakeObject(int id, Vec2 pos)
