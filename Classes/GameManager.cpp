@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Tank.h"
 #include "ContactListener.h"
+#include "Enums.h"
 
 GameManager* GGameManager = nullptr;
 
@@ -12,13 +13,7 @@ GameManager::GameManager()
 {
     m_IM = std::make_shared<InputManager>();
     InitPhysicsWorld();
-
-    //하드코딩 
-    m_Player1 = new Player(1);
-    m_Player2 = new Player(2);
-
-    m_WhoseTurn = m_Player1->GetPlayerID();
-    GiveTurn(m_WhoseTurn);
+    //SetTwoPlayer();
 }
 
 int GameManager::ChangeTurn(int finishedPlayerID)
@@ -42,16 +37,34 @@ int GameManager::ChangeTurn(int finishedPlayerID)
 
 void GameManager::SetTwoPlayer()
 {
-    
+    //하드코딩 
+    m_PlayerList[1] = new Player(1, TEAM_A);
+    m_PlayerList[2] = new Player(2, TEAM_B);
 
 
+    m_Player1 = m_PlayerList[1];
+    m_Player2 = m_PlayerList[2];
+
+    auto objlayer = GET_OBJECT_LAYER;
+
+    auto firstP = m_PlayerList.find(1);
+    firstP->second->MakeTank(1, Vec2(500.0f, 100.0f));
+    objlayer->AddTank(firstP->second->GetTank());
+
+
+    auto secondP = m_PlayerList.find(2);
+    secondP->second->MakeTank(2, Vec2(100.0f, 100.0f));
+    objlayer->AddTank(secondP->second->GetTank());
+
+    m_WhoseTurn = firstP->second->GetPlayerID();
+    GiveTurn(m_WhoseTurn);
 }
 
 void GameManager::GiveTurn(int playerID)
 {
     //player sprite에 화살표 주기 주기
-
-
+    auto nowTurnPlayer = m_PlayerList.find(playerID);
+    nowTurnPlayer->second->SetMyTurn(true);
 }
 
 void GameManager::InitPhysicsWorld()

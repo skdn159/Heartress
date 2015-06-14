@@ -10,5 +10,7 @@ public:
     CREATE_FUNC(MapLayer);
 
     void MakeObject(int id, Vec2 pos);
+
+    PhysicsBody* m_EdgeBox;
 };
 

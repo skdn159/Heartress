@@ -1,6 +1,6 @@
 ﻿#include "cocos2d.h"
 #include "MapLayer.h"
-
+#include "GameManager.h"
 
 bool MapLayer::init()
 {
@@ -8,9 +8,22 @@ bool MapLayer::init()
     {
         return false;
     }
-//      auto sprite = Sprite::create("Images/sky.png");
-//      sprite->setPosition(this->getAnchorPointInPoints());
-//      this->addChild(sprite);
+     auto sprite = Sprite::create("Images/sky.png");
+     sprite->setPosition(this->getAnchorPointInPoints());
+     this->addChild(sprite);
+
+     auto visibleSize = Director::getInstance()->getVisibleSize();
+
+     m_EdgeBox = PhysicsBody::createEdgeBox(Size(visibleSize.width, visibleSize.height), PHYSICSBODY_MATERIAL_DEFAULT, 3);
+     auto node = cocos2d::Node::create();
+     
+     node->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+     node->setPosition(Vec2(visibleSize.width/2 , visibleSize.height/2+30.0f ));
+     node->setPhysicsBody(m_EdgeBox);
+     
+     
+     this->addChild(node);
+
      return true;
 }
 

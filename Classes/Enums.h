@@ -1,23 +1,35 @@
 ﻿#pragma once
+
+#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
+#define GET_MAP_LAYER       dynamic_cast<MapLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("ListenerLayer")->getChildByName("MapLayer"))
+#define GET_UI_LAYER        dynamic_cast<UILayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("UILayer"))
+
+
+
+
 enum BodyShape
 {
     CIRCLE,
     BOX,
 };
 
-// enum CursorMode
-// {
-//     CURSOR_DEFAULT,
-//     CURSOR_ATTACK,
-//     CURSOR_TELEPORT,
-//     CURSOR_SPLASH,
-// };
-
 enum Direction
 {
     E,
     W,
+    N,
+    S,
 
+};
+
+enum TankAction
+{
+    MOVE_LEFT,
+    MOVE_RIGHT,
+    SHOT,
+    DEGREE_UP,
+    DEGREE_DOWN,
+    ACTION_NONE,
 };
 
 enum GameResult

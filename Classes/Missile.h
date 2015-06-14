@@ -4,11 +4,11 @@
 class Missile : public Unit
 {
 public:
-    Missile(int unitId);
+    Missile(Player*owner, Vec2 createPos, int unitId, Team team);
     virtual ~Missile();
 
 public:
-    void MissileCast(const char* image, const char* soundEffect, float speed, Vec2 createPos, Vec2 targetPos);
+    void MissileCast(float speed, Vec2 createPos, Vec2 targetPos);
     void MissileCrash();
     void MissileDelete();
     // 
@@ -26,5 +26,6 @@ protected:
 
 private:
     float       m_Damage;
+    float       m_Scale;
     MissileType m_MissileType;
 };

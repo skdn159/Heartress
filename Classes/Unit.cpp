@@ -12,7 +12,6 @@ using namespace CocosDenshion;
 Unit::Unit()
 {
     m_UnitType = UNIT_NONE;
-    m_Name = "";
     m_PlayerID = -1;
     m_UnitID = -1;
     m_CurHp = m_MaxHp = 0;
@@ -20,8 +19,6 @@ Unit::Unit()
     m_TargetPos = { 0, 0 };
     m_CurPos = { 0, 0 };
 
-//    m_CenterSprite = Sprite::create("Images/Unit/CloackingUnit.png");
-    
 }
 
 Unit::~Unit()
@@ -30,37 +27,7 @@ Unit::~Unit()
 
 
 
-void Unit::Move()
-{
-//     if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
-//     {
-//         auto hero = dynamic_cast<Hero*>(this);
-//         hero->SetMoveMotionByDir();
-//     }
-//     if (GET_MAIN_TYPE(m_UnitID) == UNIT_MOB)
-//     {
-//         this->SetMoveMotionByDir();
-//     }
-// 
-//     auto gap = m_TargetPos - m_CenterSprite->getPosition();
-//     gap.normalize();
-//     m_TargetPos -= gap * 15;
-//     auto distance = m_CenterSprite->getPosition().distance(m_TargetPos);
-//     auto time = distance / m_Speed;
-//     auto action1 = MoveTo::create(time, m_TargetPos);
-//     auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, this));
-//     auto action3 = Sequence::create(action1, action2, NULL);
-//     m_CenterSprite->runAction(action3);
-}
 
-//void Unit::Crash()
-//{
-//     auto distance = m_CenterSprite->getPosition().distance(m_TargetPos);
-//     auto time = sqrt(distance) / 15;
-//     auto action1 = MoveTo::create(time, m_TargetPos);
-//     auto action2 = EaseOut::create(action1, 2.5f);
-//     m_CenterSprite->runAction(action2);
-//}
 
 
 // 
@@ -175,100 +142,3 @@ void Unit::Damaged()
 //     m_RealSprite->runAction(action3);
 //     //m_Damaged->setVisible(false);
 }
-
-void Unit::SetDynamicBody(const Vec2& initPos, float scale)
-{
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(initPos.x, initPos.y);
-
-
-}
-
-// 
-// Direction Unit::CalcMoveDirection(Vec2 displacement)
-// {
-//     float slope = displacement.y / displacement.x;
-// 
-//     if (displacement.x > 0)
-//     {
-//         if (slope > -0.41f  && slope <= 0.41f)  return Direction::E;
-//         if (slope > 0.41f   && slope <= 2.41f)  return Direction::NE;
-//         if (slope <= -0.41f && slope > -2.41f)  return Direction::SE;
-//         if (slope > 2.41f)                      return Direction::NE;
-//         if (slope <= -2.41f)                    return Direction::S;
-//     }
-//     else if (displacement.x < 0)
-//     {
-//         if (slope > -0.41f  && slope <= 0.41f)  return Direction::W;
-//         if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
-//         if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
-//         if (slope > 2.41f)                      return Direction::SW;
-//         if (slope <= -2.41f)                    return Direction::N;
-//     }
-//     else if (displacement.x == 0)
-//     {
-//         if (displacement.y < 0)
-//             return Direction::S;
-//         else
-//             return Direction::N;
-//     }
-//     return Direction::E;
-// }
-// 
-// Direction Unit::CalcSkillDirection(Vec2 displacement)
-// {
-//     float slope = displacement.y / displacement.x;
-// 
-//     if (displacement.x > 0)
-//     {
-//         if (slope >= 0)
-//             return Direction::NE;
-//         else
-//             return Direction::SE;
-//     }
-//     else
-//     {
-//         if (slope >= 0)
-//             return Direction::SW;
-//         else
-//             return Direction::NW;
-//     }
-//     return Direction::SE;
-// }
-// 
-// RepeatForever* Unit::MakeUnitAnimation(const char* format, int size)
-// {
-//     auto animation = Animation::create();
-//     if (size < 5)
-//         animation->setDelayPerUnit(1.0f);
-//     
-//     else
-//         animation->setDelayPerUnit(0.3f);
-// 
-//     for (int i = 1; i < size + 1; ++i)
-//     {
-//         auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-//         animation->addSpriteFrame(frame);
-//     }
-//     return RepeatForever::create(Animate::create(animation));
-// }
-// 
-// Animate* Unit::MakeUnitAnimationOnce(const char* format, int size)
-// {
-//     auto animation = Animation::create();
-// 
-//     if (size < 5)
-//         animation->setDelayPerUnit(0.3f);
-//     else
-//         animation->setDelayPerUnit(0.2f);
-//    
-// 
-//     for (int i = 1; i < size + 1; ++i)
-//     {
-//         auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-//         animation->addSpriteFrame(frame);
-//     }
-// 
-//     return Animate::create(animation);
-// }

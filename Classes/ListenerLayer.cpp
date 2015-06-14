@@ -6,6 +6,8 @@
 #include "GameScene.h"
 #include "UILayer.h"
 #include "math.h"
+#include "Tank.h"
+#include "Unit.h"
 //#include "Macros.h"
 
 #define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
@@ -21,10 +23,10 @@ bool ListenerLayer::init()
     }
     //this->setPosition(-(MAX_MAP_SIZE_X - DISPLAY_X)/2, -(MAX_MAP_SIZE_Y - DISPLAY_Y)/2);
 
-    auto layer1 = MapLayer::create();
     auto layer2 = ObjectLayer::create();
-    this->addChild(layer1, 0, "MapLayer");
     this->addChild(layer2, 1, "ObjectLayer");
+    auto layer1 = MapLayer::create();
+    this->addChild(layer1, 0, "MapLayer");
 
   //  m_Targeting = false;
 
@@ -172,39 +174,40 @@ void ListenerLayer::ScreenMove()
 ///////////////////////////////////////////////////////////////////////////
 void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-//     GET_IM->SetKeyStatus(keyCode, true);
-// 
-//     auto key = KeyboardToSkillKey(keyCode);
-//     if (key == SKILL_NONE)
-//     {
-//         switch (keyCode)
-//         {
-//         case KEY_ESC:
-//             {
-//                 GET_ESC_LAYER->ShowEscLayer();
-//             }
-//             break;
-//         }
-//     }
-// 
-//     auto hero = GET_OBJECT_LAYER->GetMyHero();
-//     if (hero == nullptr)
-//     {
+    GET_IM->SetKeyStatus(keyCode, true);
+    
+    auto missileKey = KeyboardToMissileType(keyCode);
+    auto actionKey = KeyboardToAction(keyCode);
+
+//     if (missileKey == MISSILE_NONE){
 //         return;
 //     }
-//     if (!m_Targeting && hero->GetSkillCanUse(key))
-//     {
-//         GET_UI_LAYER->CursorChange(CURSOR_ATTACK);
-//         GET_UI_LAYER->GetCurrentCursor()->setPosition(GET_IM->GetMouseLocation());
-//         GET_IM->SetTargeting(keyCode, true);
-//         hero->SkillReady(key);
-//         m_Targeting = true;
+//     if (actionKey == ACTION_NONE){
+//         return;
 //     }
+
+    auto Tank1P = GGameManager->Get1Player()->GetTank();
+    auto Tank2P = GGameManager->Get2Player()->GetTank();
+
+
+    ///분화 해야하지만 그냥 감 Enum Action을 1p 2p 따로...
+
+    Tank1P->DoAction(actionKey,true);
+    Tank2P->DoAction(actionKey,true);
+
 }
 
 void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
     GET_IM->SetKeyStatus(keyCode, false);
+    auto powerKey = KeyboardToAction(keyCode);
+
+    auto Tank1P = GGameManager->Get1Player()->GetTank();
+    auto Tank2P = GGameManager->Get2Player()->GetTank();
+    Tank1P->DoAction(powerKey, false);
+    Tank2P->DoAction(powerKey, false);
+
+
 }
 
 MissileType ListenerLayer::KeyboardToMissileType(EventKeyboard::KeyCode keyCode)
@@ -218,7 +221,31 @@ MissileType ListenerLayer::KeyboardToMissileType(EventKeyboard::KeyCode keyCode)
     case KEY_9:  return TANK_DESTROYER;
     case KEY_3:  return DIRT_MAKER;
     case KEY_0:  return DIRT_MAKER;
+
+
+
     default:     return MISSILE_NONE;
+    }
+}
+
+TankAction ListenerLayer::KeyboardToAction(EventKeyboard::KeyCode keyCode)
+{
+    //todo P1, P2 다뤄야함
+    switch (keyCode)
+    {
+    case KEY_W: return DEGREE_UP;
+    case KEY_S: return DEGREE_DOWN;
+    case KEY_A: return MOVE_LEFT;
+    case KEY_D: return MOVE_RIGHT;
+    case KEY_TAB: return SHOT;
+
+    case KEY_UP_ARROW:   return DEGREE_UP;
+    case KEY_DOWN_ARROW:  return DEGREE_DOWN;
+    case KEY_LEFT_ARROW:  return MOVE_LEFT;
+    case KEY_RIGHT_ARROW: return MOVE_RIGHT;
+    case  KEY_SPACE: return SHOT;
+
+    default: return ACTION_NONE;
     }
 }
 

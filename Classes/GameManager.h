@@ -11,6 +11,7 @@ USING_NS_CC;
 #define GET_GM GameManager::getInstance()
 #define GET_IM GameManager::getInstance().getInputManager()
 
+
 class GameManager
 {
 public:
@@ -26,12 +27,14 @@ public:
     //하드 코딩
     void SetTwoPlayer();
     void GiveTurn(int playerID);
+    b2World*    GetWorld(){ return m_World; }
+    ContactListener*    GetContact(){ return m_Contact; }
 
+    Player* Get1Player(){ return m_Player1; }
+    Player* Get2Player(){ return m_Player2; }
 
 private:
-    b2World*    GetWorld(){ return m_World; }
     void        InitPhysicsWorld();
-    ContactListener*    GetContact(){ return m_Contact; }
 
 
 private:

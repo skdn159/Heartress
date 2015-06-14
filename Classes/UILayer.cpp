@@ -1,18 +1,23 @@
 ﻿#include "UILayer.h"
 #include <crtdbg.h>
+#include "GameManager.h"
 
 bool UILayer::init()
 {
-//     if (!Layer::init())
-//     {
-//         return false;
-//     }
-//     auto winSize = Director::getInstance()->getWinSize();
-//     auto menuItem = MenuItemImage::create("Images/Interface/Exit.png","Images/Interface/Exit_selected.png", CC_CALLBACK_1(UILayer::ClickExit, this));
-//     menuItem->setScale(0.3f, 0.3f);
-//     auto menu = Menu::create(menuItem, NULL);
-//     menu->setPosition(winSize.width - 40, 12);
-//     this->addChild(menu);
+    if (!Layer::init())
+    {
+        return false;
+    }
+
+
+
+    auto winSize = Director::getInstance()->getWinSize();
+    auto menuItem = MenuItemImage::create("Images/start.png","Images/start.png.png", CC_CALLBACK_1(UILayer::ClickStart, this));
+    menuItem->setScale(0.3f, 0.3f);
+    auto menu = Menu::create(menuItem, NULL);
+    menu->setPosition(winSize.width/2, winSize.height-30);
+    this->addChild(menu);
+    //auto startButton = MenuItemImage::create("Images/start.png", "Images/start.png",);
 // 
 //     auto hpLabel = Label::createWithSystemFont("\0", "Thonburi", 23);
 //     hpLabel->setPosition(Vec2(MAX_MAP_SIZE_X / 2, 143));
@@ -56,6 +61,11 @@ bool UILayer::init()
 
     return true;
 }
+void UILayer::ClickStart(Ref* sender)
+{
+    GGameManager->SetTwoPlayer();
+}
+
 
 // void UILayer::CursorChange(CursorMode mode)
 // {
@@ -101,3 +111,5 @@ bool UILayer::init()
 //         auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
 //         hpBar->setScaleX(0.72f*(curHp / maxHp));
     }
+
+  

@@ -12,7 +12,7 @@ public:
 
 //    void    ClickExit(Ref* sender);
     void    UpdateHpBar(float curHp, float maxHp);
-
+    void    ClickStart(Ref* sender); 
     //Sprite* GetCurrentCursor() { return m_Cursor; }
     //Sprite* GetCooltimeBox(SkillKey key);
 

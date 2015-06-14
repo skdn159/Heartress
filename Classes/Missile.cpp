@@ -4,13 +4,30 @@
 #include "ObjectLayer.h"
 #include "SimpleAudioEngine.h"
 
+
 using namespace CocosDenshion;
 
-Missile::Missile(int unitId)
+Missile::Missile(Player*owner, Vec2 createPos, int unitId,Team team)
 {
     m_UnitType = UNIT_MISSILE;
     m_UnitID = unitId;
     m_Damage = 0;
+    m_Scale = 0.6f;
+    //m_Speed = 200.0f;
+    m_Team = team;
+    m_Owner = owner;
+
+    m_Sprite = Sprite::create("Images/Missile.png");
+    m_Sprite->setScale(m_Scale);
+    auto material = PhysicsMaterial(0.0f, 0.0f, 5.0f);
+
+    m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*m_Scale/3, material);
+    //m_Body = PhysicsBody::createBox(Size(m_Sprite->getContentSize().width, m_Sprite->getContentSize().height), material);
+    m_Body->setRotationEnable(true);
+    m_Sprite->setPhysicsBody(m_Body);
+    m_Sprite->setPosition(createPos);
+
+
 }
 
 
@@ -18,21 +35,6 @@ Missile::~Missile()
 {
 }
 
-void Missile::MissileCast(const char* image, const char* soundEffect, float speed, Vec2 createPos, Vec2 targetPos)
-{
-//     SimpleAudioEngine::getInstance()->playEffect(soundEffect);
-//     m_Particle = ParticleSystemQuad::create(image);
-//     m_Particle->setPosition(createPos);
-//     m_Particle->setScale(0.65f);
-//     auto distance = createPos.distance(targetPos);
-//     auto time = distance / speed;
-//     auto action1 = MoveTo::create(time, targetPos);
-//     auto action2 = DelayTime::create(1.0f);
-//     auto action3 = CallFunc::create(CC_CALLBACK_0(Missile::MissileDelete, this));
-//     auto action4 = Sequence::create(action1, action2, action3, NULL);
-// 	GET_OBJECT_LAYER->addChild(m_Particle, 19);
-//     m_Particle->runAction(action4);
-}
 
 void Missile::MissileCrash()
 {
@@ -46,18 +48,7 @@ void Missile::MissileCrash()
 // 
 //     Effect* effect;
 //     auto type = GET_SIDE_TYPE(m_UnitID);
-// 
-//     switch (type)
-//     {
-// 	case MS_FIRE_BALL:  
-//         effect = new FireEffect();  break;
-// 	case MS_ICE_BALL:   
-//         effect = new IceEffect();   break;
-// 	case MS_SPARK:      
-//         effect = new SparkEffect(); break;
-// 	default: return;
-//     }
-//     effect->CreateEffect(m_Particle->getPosition());
+
 }
 
 void Missile::MissileDelete()

@@ -13,7 +13,8 @@ Scene* GameScene::createScene()
 {
 
     auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setGravity(Vect(0.0f, -10.0f));
+    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    scene->getPhysicsWorld()->setGravity(Vect(0.0f, -1000.0f));
 
     auto layer1 = GameScene::create();
     auto layer2 = ListenerLayer::create();
@@ -52,8 +53,7 @@ bool GameScene::init()
 
 void GameScene::StartGame()
 {
-    ShowCursor(false);
-//    m_IsStartGame = true;
+
 }
 
 

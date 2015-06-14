@@ -18,6 +18,7 @@ bool ObjectLayer::init()
     {
         return false;
     }
+
     return true;
 }
 
@@ -31,19 +32,21 @@ void ObjectLayer::Tick(float dt)
 //     }
 }
 
-void ObjectLayer::CreateTank(int playerID, int unitID, Vec2 location, Team team)
+void ObjectLayer::AddTank(Unit* tank)
 {
-    std::shared_ptr<Tank> tank;
-
-    tank->SetUnitOwner(playerID);
-    tank->SetUnitID(unitID);
-    tank->SetCurPos(location);
-    tank->SetTeam(team);
 
 
 
-
+    this->addChild(tank->GetSprite());
 }
+
+void ObjectLayer::AddMissile(Unit* missile)
+{
+    this->addChild(missile->GetSprite());
+}
+
+
+
 
 //////////////////////////////////////////////////////////////////////////
 // 

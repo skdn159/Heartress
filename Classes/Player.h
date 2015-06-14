@@ -2,11 +2,14 @@
 #include "Enums.h"
 #include <map>
 #include "Unit.h"
+#include "Tank.h"
+
+typedef std::map<int, Unit*> UnitList;
 
 class Player
 {
 public:
-    Player(int playerID);
+    Player(int playerID, Team team);
     ~Player();
     
     void SetPlayerID(int playerID){ m_PlayerID = playerID; }
@@ -19,13 +22,19 @@ public:
     bool GetIsMyTrun(){ return m_IsMyTurn; }
 
     void ReceiveChance(int receivedPlayerID);
+    void MakeTank(int unitID, Vec2 initPos);
+    UnitList GetUnitList(){ return m_UnitList; }
+
+    Tank* GetTank(){ return m_Tank; }
+    void FinishTurn();
 
 public:
     bool m_IsMyTurn;
     Team m_Team;
     int m_PlayerID;
 
-    std::map<int, Unit*> m_UnitList;
+    Tank* m_Tank;
+    UnitList m_UnitList;
 
 };
 
