@@ -4,7 +4,7 @@
 class Tank :	public Unit
 {
 public:
-    Tank(int unitId);
+    Tank(Vec2 createPos, int unitId);
     virtual ~Tank();
 
 public:
@@ -15,10 +15,17 @@ public:
 //     virtual void    SetMoveMotionToCache();
 //     virtual void    SetMoveMotionByDir();
 
+    void SetLookingDir(Direction dir){ m_LookingDir = dir; }
+    Direction GetLookingDir(){ return m_LookingDir; }
+
+    void Shot();
+    void Move();
+
 protected:
     //ParticleSystemQuad* m_Particle = nullptr;
 
 private:
     Direction   m_LookingDir;
+
 };
 

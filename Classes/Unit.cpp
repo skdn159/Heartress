@@ -3,6 +3,9 @@
 #include "GameManager.h"
 #include "SimpleAudioEngine.h"
 #include <memory>
+#include "Player.h"
+#include "Box2D.h"
+
 using namespace CocosDenshion;
 
 
@@ -15,6 +18,8 @@ Unit::Unit()
     m_CurHp = m_MaxHp = 0;
     m_Speed = 0;
     m_TargetPos = { 0, 0 };
+    m_CurPos = { 0, 0 };
+
 //    m_CenterSprite = Sprite::create("Images/Unit/CloackingUnit.png");
     
 }
@@ -170,6 +175,16 @@ void Unit::Damaged()
 //     m_RealSprite->runAction(action3);
 //     //m_Damaged->setVisible(false);
 }
+
+void Unit::SetDynamicBody(const Vec2& initPos, float scale)
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(initPos.x, initPos.y);
+
+
+}
+
 // 
 // Direction Unit::CalcMoveDirection(Vec2 displacement)
 // {

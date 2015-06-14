@@ -8,6 +8,9 @@ USING_NS_CC;
 class Unit;
 class Missile;
 
+#define GET_IM GameManager::getInstance().getInputManager()
+
+
 class ObjectLayer : public cocos2d::Layer
 {
 public:
@@ -17,6 +20,12 @@ public:
 //    std::shared_ptr<Hero> GetMyHero(){ return m_Hero; }
 
     void Tick(float dt);
+
+    void CreateTank(int playerID, int unitID, Vec2 location, Team team);
+    void CreateMapObject(int unitID, Vec2 pos);
+
+
+
 
 //    void CreateHero(int playerID, int unitID, Vec2 location, Team team, RoomType roomType);
 //     void CreateMapObject(int unitID, Vec2 pos);

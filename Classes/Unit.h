@@ -7,6 +7,8 @@ USING_NS_CC;
 
 typedef std::map<Direction, Animation*> MoveMotion;
 
+class Player;
+
 class Unit
 {
 public:
@@ -30,7 +32,7 @@ public:
        float           GetCurHp(){ return m_CurHp; }
        float           GetSpeed(){ return m_Speed; }
        float           GetAngleRadian(){ return m_AngleRadian; }
-
+       Team            GetTeam(){ return m_Team; }
 
 //     virtual void    SetMoveMotionToCache() = 0;
 //     virtual void    SetMoveMotionByDir() = 0;
@@ -58,8 +60,15 @@ public:
 //     void            InitCenterSprite();
 //     void            InitRealSprite();
 //     void            SetAllSpriteVisible();
+     void            SetUnitID(int unitID){ m_UnitID = unitID; }
      void            SetHp(int curHp);
      void            SetMyHpBar();
+     void            SetCurPos(Vec2 pos){ m_CurPos = pos; }
+     void            SetUnitOwner(int PlayerID){ m_PlayerID = PlayerID; }
+     void            SetTeam(Team team){ m_Team = team; }
+     void            SetDynamicBody(const Vec2& initPos, float scale);
+
+
 //     void            SetEnemyHpBar();
 //     void            SetTeamHpBar();
 //     void            SetUnitHpBar();
@@ -81,8 +90,11 @@ protected:
     float           m_MaxHp;
     float           m_CurHp;
     Vec2            m_TargetPos;
+    Vec2            m_CurPos;
     float           m_Speed;
     float           m_AngleRadian;
+    Team            m_Team;
+    Player*         m_Owner;
 
 protected:
     MoveMotion      m_MoveMotionByDir;

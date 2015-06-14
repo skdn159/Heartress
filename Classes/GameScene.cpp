@@ -11,21 +11,14 @@ using namespace CocosDenshion;
 
 Scene* GameScene::createScene()
 {
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
     auto scene = Scene::createWithPhysics();
-
-    
     scene->getPhysicsWorld()->setGravity(Vect(0.0f, -10.0f));
-
 
     auto layer1 = GameScene::create();
     auto layer2 = ListenerLayer::create();
     scene->addChild(layer1, 3, "GameScene");
     layer1->addChild(layer2, 0, "ListenerLayer");
-
-//     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/game1.mp3");
-//     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/game2.mp3");
 
     return scene;
 }
@@ -37,6 +30,10 @@ bool GameScene::init()
     {
         return false;
     }
+
+    GGameManager = new GameManager();
+
+
 //     m_IsStartGame = false;
 // 
 //     auto layer1 = LoadingBGLayer::create();

@@ -85,6 +85,7 @@
     <ClCompile Include="..\Classes\Tank.cpp">
       <Filter>Object\Unit\Tank</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ContactListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -131,6 +132,7 @@
     <ClInclude Include="..\Classes\Tank.h">
       <Filter>Object\Unit\Tank</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\ContactListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

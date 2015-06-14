@@ -6,6 +6,7 @@
 #include "Unit.h"
 #include "MapLayer.h"
 #include "SimpleAudioEngine.h"
+#include "Tank.h"
 
 using namespace CocosDenshion;
 
@@ -29,6 +30,21 @@ void ObjectLayer::Tick(float dt)
 //         unit.second->GetCenterSprite()->setZOrder(-unit.second->GetCenterSprite()->getPosition().y);
 //     }
 }
+
+void ObjectLayer::CreateTank(int playerID, int unitID, Vec2 location, Team team)
+{
+    std::shared_ptr<Tank> tank;
+
+    tank->SetUnitOwner(playerID);
+    tank->SetUnitID(unitID);
+    tank->SetCurPos(location);
+    tank->SetTeam(team);
+
+
+
+
+}
+
 //////////////////////////////////////////////////////////////////////////
 // 
 // void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location, Team team, RoomType roomType)

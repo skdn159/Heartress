@@ -6,10 +6,11 @@
 
 using namespace CocosDenshion;
 
-Tank::Tank(int unitId)
+Tank::Tank(Vec2 createPos, int unitId)
 {
     m_UnitType = UNIT_TANK;
     m_UnitID = unitId;
+
 }
 
 
