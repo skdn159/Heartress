@@ -16,7 +16,7 @@ Tank::Tank(Player* owner,Vec2 createPos, int unitId,Team team)
     m_UnitID = unitId;
     m_Team = team;
     m_CanMove = false;
-    m_Speed = 5.0f;
+    m_Speed = 100.0f;
     m_Owner = owner;
     m_DegreeAdj = 5.0f;
     m_AimDegree = { 20.0f, 20.0f };
@@ -71,6 +71,12 @@ void Tank::MoveR()
     m_Body->applyImpulse(Vec2(+m_Speed, 0));
 
 }
+void Tank::Stop()
+{
+    m_Body->applyImpulse(Vec2(0.0f, 0.0f));
+}
+
+
 
 
 void Tank::Calstatus(Direction dir)
@@ -78,11 +84,9 @@ void Tank::Calstatus(Direction dir)
     switch (dir)
     {
     case E:
-        m_CurPos.x += m_Speed;
         MoveR();
         break;
     case W:
-        m_CurPos.x -= m_Speed;
         MoveL();
         break;
     case N:
@@ -142,7 +146,7 @@ void Tank::MissileCast()
     GET_OBJECT_LAYER->AddMissile(missile);
     auto normal = m_AimDegree.getNormalized();
 
-    missile->GetPhysicsBody()->applyImpulse(Vec2( normal.x*m_Guage*m_Speed, normal.y*m_Guage*m_Speed) );
+    missile->GetPhysicsBody()->applyImpulse(Vec2( normal.x*m_Guage, normal.y*m_Guage));
 
     //player가 턴 넘기게
     
@@ -156,7 +160,7 @@ void Tank::ShotMissile()
 
 void Tank::ShotGuageUp()
 {
-    m_Guage += 50.0f;
+    m_Guage += 10.0f;
 }
 
 Vec2 Tank::GenerateMissileInitPos()
@@ -168,5 +172,4 @@ Vec2 Tank::GenerateMissileInitPos()
     auto missilePos = curPos + normal*a;
     return missilePos;
 }
-
 

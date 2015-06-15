@@ -9,6 +9,7 @@ bool MapLayer::init()
         return false;
     }
      auto sprite = Sprite::create("Images/sky.png");
+     sprite->setScale(1.4f);
      sprite->setPosition(this->getAnchorPointInPoints());
      this->addChild(sprite);
 

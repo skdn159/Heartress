@@ -30,6 +30,8 @@ public:
     void MoveR();
     Vec2 GenerateMissileInitPos();
 
+    void SetGuage(float guage){ m_Guage = guage; }
+    void Stop();
 
 protected:
 

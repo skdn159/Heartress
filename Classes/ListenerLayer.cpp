@@ -41,7 +41,10 @@ bool ListenerLayer::init()
     K_listener->onKeyReleased = CC_CALLBACK_2(ListenerLayer::OnKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
-	this->schedule(schedule_selector(ListenerLayer::Tick));
+    m_PowerGuage = 0.0f;
+    m_IsguageOn = false;
+
+	this->schedule(schedule_selector(ListenerLayer::Tick),0.1f);
 	layer2->schedule(schedule_selector(ObjectLayer::Tick));
     return true;
 }
@@ -49,31 +52,42 @@ bool ListenerLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ListenerLayer::Tick(float dt)
 {
-    //ScreenMove();
+    CheckGuage();
+
+    
+
 }
 //////////////////////////////////////////////////////////////////////////
 
 
-void ListenerLayer::ScreenMove()
+// void ListenerLayer::ScreenMove()
+// {
+// //     if (GET_IM->GetMouseScrollStatus(SCROLL_UP) && this->getPositionY() < MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
+// //     {
+// //         this->setPositionY(this->getPositionY() + 20);
+// //     }
+// //     if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN) && this->getPositionY() > -MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
+// //     {
+// //         this->setPositionY(this->getPositionY() - 20);
+// //     }
+// //     if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && this->getPositionX() < MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
+// //     {
+// //         this->setPositionX(this->getPositionX() + 20);
+// //     }
+// //     if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && this->getPositionX() > -MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
+// //     {
+// //         this->setPositionX(this->getPositionX() - 20);
+// //     }
+// }
+void ListenerLayer::CheckGuage()
 {
-//     if (GET_IM->GetMouseScrollStatus(SCROLL_UP) && this->getPositionY() < MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
-//     {
-//         this->setPositionY(this->getPositionY() + 20);
-//     }
-//     if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN) && this->getPositionY() > -MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
-//     {
-//         this->setPositionY(this->getPositionY() - 20);
-//     }
-//     if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && this->getPositionX() < MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
-//     {
-//         this->setPositionX(this->getPositionX() + 20);
-//     }
-//     if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && this->getPositionX() > -MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
-//     {
-//         this->setPositionX(this->getPositionX() - 20);
-//     }
-}
+    if (m_IsguageOn==true)
+    {
+        m_PowerGuage+=120.0f;
 
+    }
+
+}
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -179,18 +193,17 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
     auto missileKey = KeyboardToMissileType(keyCode);
     auto actionKey = KeyboardToAction(keyCode);
 
-//     if (missileKey == MISSILE_NONE){
-//         return;
-//     }
-//     if (actionKey == ACTION_NONE){
-//         return;
-//     }
+    if (actionKey == SHOT)
+    {
+        m_IsguageOn = true;
+    }
 
     auto Tank1P = GGameManager->Get1Player()->GetTank();
     auto Tank2P = GGameManager->Get2Player()->GetTank();
 
 
     ///분화 해야하지만 그냥 감 Enum Action을 1p 2p 따로...
+
 
     Tank1P->DoAction(actionKey,true);
     Tank2P->DoAction(actionKey,true);
@@ -204,10 +217,16 @@ void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 
     auto Tank1P = GGameManager->Get1Player()->GetTank();
     auto Tank2P = GGameManager->Get2Player()->GetTank();
+
+     Tank1P->SetGuage(m_PowerGuage);
+    Tank2P->SetGuage(m_PowerGuage);
+
     Tank1P->DoAction(powerKey, false);
     Tank2P->DoAction(powerKey, false);
 
-
+    m_IsguageOn = false;
+    m_PowerGuage = 0.0f;
+    
 }
 
 MissileType ListenerLayer::KeyboardToMissileType(EventKeyboard::KeyCode keyCode)
@@ -248,6 +267,13 @@ TankAction ListenerLayer::KeyboardToAction(EventKeyboard::KeyCode keyCode)
     default: return ACTION_NONE;
     }
 }
+
+float ListenerLayer::CalGuage()
+{
+    return m_PowerGuage;
+}
+
+
 
 
 

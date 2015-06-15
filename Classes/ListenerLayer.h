@@ -12,8 +12,9 @@ public:
     CREATE_FUNC(ListenerLayer);
 
     void            Tick(float dt);
-    void            ScreenMove();
-
+    //void            ScreenMove();
+    void            CheckGuage();
+    float           CalGuage();
 //     virtual void    OnMouseDown(Event *event);
 //     virtual void    OnMouseUp(Event *event);
 //     virtual void    OnMouseMove(Event *event);
@@ -33,5 +34,7 @@ private:
 
 private:
     //bool            m_Targeting;
+    float             m_PowerGuage;
+    bool              m_IsguageOn;
 };
 
