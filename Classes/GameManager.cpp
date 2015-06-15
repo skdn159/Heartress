@@ -22,11 +22,14 @@ int GameManager::ChangeTurn(int finishedPlayerID)
 
     if (finishedPlayerID == 1)
     {
-        return 2;
-    }
+//         GiveTurn(2);
+//         return 2;
+     }
 
-    else
+    if (finishedPlayerID==2)
     {
+        GiveTurn(1);
+
         return 1;
     }
 
@@ -65,6 +68,9 @@ void GameManager::GiveTurn(int playerID)
     //player sprite에 화살표 주기 주기
     auto nowTurnPlayer = m_PlayerList.find(playerID);
     nowTurnPlayer->second->SetMyTurn(true);
+    auto tank = nowTurnPlayer->second->GetTank();
+        tank->SetCanMove(true);
+
 }
 
 void GameManager::InitPhysicsWorld()

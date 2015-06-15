@@ -148,7 +148,7 @@ void Tank::MissileCast()
 
     missile->GetPhysicsBody()->applyImpulse(Vec2( normal.x*m_Guage, normal.y*m_Guage));
 
-    //player가 턴 넘기게
+   // m_Owner->FinishTurn();
     
 }
 

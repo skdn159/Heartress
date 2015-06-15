@@ -50,5 +50,6 @@ void Player::MakeTank(int unitID, Vec2 initPos)
 void Player::FinishTurn()
 {
     m_IsMyTurn = false;
+   // m_Tank->SetCanMove(false);
     GGameManager->ChangeTurn(m_PlayerID);
 }

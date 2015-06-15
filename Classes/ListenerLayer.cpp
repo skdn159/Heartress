@@ -283,15 +283,3 @@ float ListenerLayer::CalGuage()
 */
 ///////////////////////////////////////////////////////////////////////////
 
-// void ListenerLayer::CoolTimeStart(SkillKey key)
-// {
-//     auto reduceWidth = ScaleBy::create(GET_OBJECT_LAYER->GetMyHero()->GetSkillCoolTime(key), 0.0f, 1.0f);
-//     auto coolTimeEnd = CallFunc::create(CC_CALLBACK_0(ListenerLayer::CoolTimeEnd, this, key));
-//     auto action = Sequence::create(reduceWidth, coolTimeEnd, NULL);
-// 
-//     auto cooltimeBox = GET_UI_LAYER->GetCooltimeBox(key);
-//     cooltimeBox->setVisible(true);
-//     cooltimeBox->runAction(action);
-// 
-//     GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, false);
-// }
