@@ -25,7 +25,7 @@ public:
     void MakeTank(int unitID, Vec2 initPos);
     UnitList GetUnitList(){ return m_UnitList; }
 
-    Tank* GetTank(){ return m_Tank; }
+     Tank* GetTank(){ return m_Tank; }
     void FinishTurn();
 
 public:
